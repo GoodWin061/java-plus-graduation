@@ -1,22 +1,19 @@
 package ru.practicum.category.mapper;
 
-import lombok.experimental.UtilityClass;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.dto.NewCategoryDto;
 import ru.practicum.category.model.Category;
 
-@UtilityClass
-public class CategoryMapper {
-    public CategoryDto mapToDto(Category category) {
-        return CategoryDto.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
-    }
+import java.util.List;
 
-    public Category mapToPojo(NewCategoryDto dto) {
-        return Category.builder()
-                .name(dto.getName())
-                .build();
-    }
+@Mapper(componentModel = "spring")
+public interface CategoryMapper {
+    @Mapping(target = "id", ignore = true)
+    Category toEntity(NewCategoryDto newCategoryDto);
+
+    CategoryDto toDto(Category category);
+
+    List<CategoryDto> toDtoList(List<Category> categories);
 }
