@@ -58,6 +58,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventShortDto> getEventsByOwner(Long userId, Integer from, Integer size) {
+        if (size == null || size <= 0) {
+            throw new IllegalArgumentException("Параметр 'size' должен быть больше 0");
+        }
         Pageable pageable = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findAllByInitiatorId(userId, pageable).toList();
         return buildEvents(events);
