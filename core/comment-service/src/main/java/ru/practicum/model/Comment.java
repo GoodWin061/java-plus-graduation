@@ -30,5 +30,6 @@ public class Comment {
     private LocalDateTime created = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private CommentStatus status = CommentStatus.PENDING;
 }

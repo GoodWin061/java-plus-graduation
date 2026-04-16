@@ -56,13 +56,15 @@ public class Event {
     private Location location;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean paid = false;
 
     @Column(name = "participant_limit", nullable = false)
     private Integer participantLimit;
 
     @Column(name = "request_moderation", nullable = false)
-    private Boolean requestModeration;
+    @Builder.Default
+    private Boolean requestModeration = true;;
 
     @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
