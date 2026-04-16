@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> findAll(Integer from, Integer size) {
-        Pageable pageable = PageRequest.of(from / size, size);
+        Pageable pageable = new OffsetBasedPageRequest(from, size);
         return repository.findAll(pageable).stream().map(categoryMapper::toDto).toList();
     }
 
