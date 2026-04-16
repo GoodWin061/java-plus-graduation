@@ -7,9 +7,9 @@ spring:
       ddl-auto: update
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:25432/ewm-db
-    username: ewm-db
-    password: ewm-db
+    url: jdbc:postgresql://localhost:25432/postgres
+    username: postgres
+    password: postgres
   sql:
     init:
       mode: always

@@ -10,10 +10,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = "ru.practicum.client")
 @EnableDiscoveryClient
 @ConfigurationPropertiesScan({"ru.practicum", "ru.practicum.client"})
-public class MainService {
+public class MainServiceApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainService.class, args);
+        SpringApplication.run(MainServiceApp.class, args);
     }
 
 }

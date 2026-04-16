@@ -26,9 +26,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> findAll(Integer from, Integer size) {
-        if (size == null || size <= 0) {
-            throw new IllegalArgumentException("Параметр 'size' должен быть больше 0");
-        }
         Pageable pageable = PageRequest.of(from / size, size);
         return repository.findAll(pageable).stream().map(categoryMapper::toDto).toList();
     }
