@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 public class UpdateCompilationRequest {
     private List<Long> events;
+    @Builder.Default
     private Boolean pinned = false;
 
     @Size(min = 1, max = 50)

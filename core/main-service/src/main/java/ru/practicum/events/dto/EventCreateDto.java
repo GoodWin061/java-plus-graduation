@@ -36,8 +36,12 @@ public class EventCreateDto {
     @NotNull
     private LocationDto location;
 
-    private Boolean paid;
+    @Builder.Default
+    private Boolean paid = false;
+
+    @Builder.Default
     @PositiveOrZero
-    private Integer participantLimit;
+    private Integer participantLimit = 0;
+    @Builder.Default
     private Boolean requestModeration = true;
 }

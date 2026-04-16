@@ -1,6 +1,7 @@
 package ru.practicum.events.mapper;
 
 import lombok.experimental.UtilityClass;
+import org.mapstruct.factory.Mappers;
 import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.mapper.CategoryMapper;
 import ru.practicum.events.dto.EventCreateDto;
@@ -13,6 +14,8 @@ import ru.practicum.user.mapper.UserMapper;
 
 @UtilityClass
 public class EventMapper {
+    private static final CategoryMapper CATEGORY_MAPPER = Mappers.getMapper(CategoryMapper.class);
+
     public EventDto mapToDto(Event event, Long confirmedRequest, Long views) {
         EventDto.EventDtoBuilder builder = EventDto.builder()
                 .id(event.getId())
@@ -38,7 +41,7 @@ public class EventMapper {
                 .publishedOn(event.getPublishedOn());
 
         if (event.getCategory() != null) {
-            builder.category(CategoryMapper.mapToDto(event.getCategory()));
+            builder.category(CATEGORY_MAPPER.toDto(event.getCategory()));
         }
 
         return builder.build();
@@ -93,7 +96,7 @@ public class EventMapper {
                 .initiator(UserMapper.toUserShortDto(event.getInitiator()));
 
         if (event.getCategory() != null) {
-            builder.category(CategoryMapper.mapToDto(event.getCategory()));
+            builder.category(CATEGORY_MAPPER.toDto(event.getCategory()));
         }
 
         return builder.build();
@@ -118,7 +121,7 @@ public class EventMapper {
                 .createdOn(event.getCreatedOn());
 
         if (event.getCategory() != null) {
-            builder.category(CategoryMapper.mapToDto(event.getCategory()));
+            builder.category(CATEGORY_MAPPER.toDto(event.getCategory()));
         }
 
         return builder.build();

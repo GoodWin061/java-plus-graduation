@@ -22,17 +22,21 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
     private final EventRepository eventRepository;
+    private final CategoryMapper categoryMapper;
 
     @Override
     public List<CategoryDto> findAll(Integer from, Integer size) {
+        if (size == null || size <= 0) {
+            throw new IllegalArgumentException("Параметр 'size' должен быть больше 0");
+        }
         Pageable pageable = PageRequest.of(from / size, size);
-        return repository.findAll(pageable).stream().map(CategoryMapper::mapToDto).toList();
+        return repository.findAll(pageable).stream().map(categoryMapper::toDto).toList();
     }
 
     @Override
     public CategoryDto findById(Long catId) {
         Category category = checkCategory(catId);
-        return CategoryMapper.mapToDto(category);
+        return categoryMapper.toDto(category);
     }
 
     @Override
@@ -41,8 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
         repository.findByNameContainsIgnoreCase(dto.getName()).ifPresent(category -> {
             throw new ConflictException("Категория с таким именем уже существует");
         });
-        Category category = CategoryMapper.mapToPojo(dto);
-        return CategoryMapper.mapToDto(repository.save(category));
+        Category category = categoryMapper.toEntity(dto);
+        return categoryMapper.toDto(repository.save(category));
     }
 
     @Override
@@ -55,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
             String newName = dto.getName().trim();
 
             if (category.getName().equals(newName)) {
-                return CategoryMapper.mapToDto(category);
+                return categoryMapper.toDto(category);
             }
 
             if (repository.existsByNameAndIdNot(newName, catId)) {
@@ -66,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         Category updatedCategory = repository.save(category);
-        return CategoryMapper.mapToDto(updatedCategory);
+        return categoryMapper.toDto(updatedCategory);
     }
 
     @Override
