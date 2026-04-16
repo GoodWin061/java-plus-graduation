@@ -32,10 +32,8 @@ public class Comment {
     @ToString.Exclude
     private User author;
 
-    @Builder.Default
     private LocalDateTime created = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     private CommentStatus status = CommentStatus.PENDING;
 }

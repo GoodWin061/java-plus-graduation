@@ -16,8 +16,6 @@ import java.util.List;
 public class NewCompilationDto {
     @Nullable
     private List<Long> events;
-
-    @Builder.Default
     private Boolean pinned = false;
 
     @NotBlank
