@@ -29,7 +29,7 @@ public class InternalEventController {
         log.debug("Controller: getEvent eventId={}", eventId);
 
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Event not found with id: " + eventId));
+                .orElseThrow(() -> new NotFoundException("Событие не найдено с : " + eventId));
 
         EventFullDto dto = eventMapper.toFullDto(event);
         dto.setInitiator(userClient.getUser(event.getInitiatorId()));
