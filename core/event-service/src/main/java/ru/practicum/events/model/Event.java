@@ -63,8 +63,7 @@ public class Event {
     private Integer participantLimit;
 
     @Column(name = "request_moderation", nullable = false)
-    @Builder.Default
-    private Boolean requestModeration = true;;
+    private Boolean requestModeration;
 
     @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
@@ -74,9 +73,9 @@ public class Event {
     @Builder.Default
     private Integer confirmedRequests = 0;
 
-    @Column(name = "views", nullable = false)
+    @Column(name = "rating", nullable = false)
     @Builder.Default
-    private Long views = 0L;
+    private Double rating = 0.0;
 
     public void pending() {
         this.state = EventState.PENDING;

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import ru.practicum.enums.UserUpdateStateAction;
 import ru.practicum.constants.DateTimePattern;
+import ru.practicum.enums.UserUpdateStateAction;
 
 import java.time.LocalDateTime;
 
