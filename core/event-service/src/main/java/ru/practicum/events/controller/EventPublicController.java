@@ -17,6 +17,8 @@ import ru.practicum.ewm.stats.proto.RecommendedEventProto;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static ru.practicum.constants.HttpHeaders.EWM_USER_ID;
+
 
 @RestController
 @RequestMapping("/events")
@@ -37,13 +39,13 @@ public class EventPublicController {
 
     @GetMapping("/{eventId}")
     public EventFullDto findEventById(@PathVariable @Positive Long eventId, HttpServletRequest request,
-                                      @RequestHeader("X-EWM-USER-ID") Long userId) {
+                                      @RequestHeader(EWM_USER_ID) Long userId) {
         return service.eventById(eventId, request.getRemoteAddr(), userId);
     }
 
     @GetMapping("/recommendations")
     public Stream<RecommendedEventProto> getRecommendations(
-            @RequestHeader("X-EWM-USER-ID") Long userId,
+            @RequestHeader(EWM_USER_ID) Long userId,
             @RequestParam(defaultValue = "10") int maxResults) {
 
         return service.getRecommendations(userId, maxResults);
@@ -53,7 +55,7 @@ public class EventPublicController {
     @ResponseStatus(HttpStatus.OK)
     public void likeEvent(
             @PathVariable Long eventId,
-            @RequestHeader("X-EWM-USER-ID") Long userId) {
+            @RequestHeader(EWM_USER_ID) Long userId) {
 
         service.likeEvent(userId, eventId);
     }
